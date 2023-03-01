@@ -42,9 +42,7 @@ public class CharacterMovement : MonoBehaviour
             State = CharState.Idle;
 
         if (Input.GetButton("Horizontal"))
-        {
             Run();
-        }
 
         if (_isGrounded && Input.GetButtonDown("Jump"))
             Jump();
@@ -52,9 +50,11 @@ public class CharacterMovement : MonoBehaviour
 
     private void Run()
     {
+        float spriteDirection = 0.0f;
+
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, _speed * Time.deltaTime);
-        _spriteRenderer.flipX = direction.x < 0.0f;
+        _spriteRenderer.flipX = direction.x < spriteDirection;
 
         if (_isGrounded) 
             State = CharState.Run;
