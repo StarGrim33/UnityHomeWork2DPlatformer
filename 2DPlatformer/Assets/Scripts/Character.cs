@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Rigidbody2D))]
 public class Character : Unit
 {
-
     [SerializeField] private int _lives;
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _shootPosition;
