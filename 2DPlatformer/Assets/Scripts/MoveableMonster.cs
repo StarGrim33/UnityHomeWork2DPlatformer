@@ -5,12 +5,10 @@ public class MoveableMonster : Monster
 {
     [SerializeField] private float _speed;
 
-    private SpriteRenderer _spriteRenderer;
     private Vector3 _direction;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _direction = transform.right;
     }
 

@@ -3,10 +3,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed;
+
     public GameObject Parent { set { _parent = value; } }
-    private GameObject _parent;
 
     public Vector3 Direction { set { _direction = value; } }
+
+    private GameObject _parent;
+
     private Vector3 _direction;
 
     private void Update()

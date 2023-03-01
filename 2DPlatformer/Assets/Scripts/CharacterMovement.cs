@@ -9,6 +9,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _whatIsGround;
 
+    private const string GroundCheck = "GroundCheck";
+
     private CharState State
     {
         get { return (CharState)_animator.GetInteger("State"); }
@@ -19,8 +21,6 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Transform _groundCheck;
-    private const string GroundCheck = "GroundCheck";
-
     private bool _isGrounded = false;
 
     private void Awake()

@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int _coinValue;
+    [SerializeField] private AudioClip _clip;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.TryGetComponent<Character>(out Character character))
+        {
+            Debug.Log("Монетка + 1");
+            character.AddCoin(_coinValue);
+
+            if (_clip != null)
+            {
+                AudioSource.PlayClipAtPoint(_clip, transform.position); 
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
