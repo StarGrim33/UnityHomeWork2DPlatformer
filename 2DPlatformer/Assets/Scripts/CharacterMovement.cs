@@ -11,11 +11,12 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private LayerMask _whatIsGround;
 
     private const string GroundCheck = "GroundCheck";
+    private static readonly int StateHash = Animator.StringToHash("State");
 
     private CharState State
     {
-        get { return (CharState)_animator.GetInteger("State"); }
-        set { _animator.SetInteger("State", (int)value); }
+        get { return (CharState)_animator.GetInteger(StateHash); }
+        set { _animator.SetInteger(StateHash, (int)value); }
     }
 
     private Animator _animator;

@@ -6,9 +6,10 @@ public class Obstacle : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<Character>(out Character character))
+        if (collision.TryGetComponent<Character>(out Character character))
         {
             character.TakeDamage();
+            Debug.Log("11");
         }
     }
 }

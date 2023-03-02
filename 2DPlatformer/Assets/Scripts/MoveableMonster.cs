@@ -17,13 +17,13 @@ public class MoveableMonster : Monster
         Move();
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Bullet>(out Bullet bullet))
-        {
-            TakeDamage();
-        }
-    }
+    //protected override void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.TryGetComponent<Bullet>(out Bullet bullet))
+    //    {
+    //        TakeDamage();
+    //    }
+    //}
 
     private void Move()
     {
