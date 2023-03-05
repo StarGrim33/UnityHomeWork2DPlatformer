@@ -11,10 +11,11 @@ public class Character : Unit
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private int _coins;
 
+    public int Coins { get { return _coins; } private set { } }
+
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Health _health;
-
 
     private void Awake()
     {

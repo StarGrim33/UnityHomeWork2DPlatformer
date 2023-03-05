@@ -5,16 +5,23 @@ public class DamageButton : MonoBehaviour
 {
     [SerializeField] private Character _character;
 
+    private Coroutine _coroutine;
+
     private int _damage = 10;
-    private float _cooldown = 5f;
+    private float _cooldown = 2f;
     private float _lastUsedTime = 0f;
     private bool _isButtonSelected = false;
 
     public void ChangeHealth()
     {
         if (!_isButtonSelected && Time.time - _lastUsedTime >= _cooldown)
-        {            
-            StartCoroutine(DamageWithCooldown());
+        {
+            if(_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+
+            _coroutine = StartCoroutine(DamageWithCooldown());
             _isButtonSelected = true;
         }
     }

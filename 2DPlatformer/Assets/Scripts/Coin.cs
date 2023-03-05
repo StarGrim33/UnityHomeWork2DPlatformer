@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private int _coinValue;
+    [HideInInspector]
     [SerializeField] private AudioClip _clip;
+
+    public static event UnityAction CoinChanged;
+
+    private int _coinValue = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.TryGetComponent<Character>(out Character character))
         {
-            Debug.Log("Монетка + 1");
             character.AddCoin(_coinValue);
+            CoinChanged?.Invoke ();
 
             if (_clip != null)
             {

@@ -5,8 +5,10 @@ public class HealButton : MonoBehaviour
 {
     [SerializeField] private Character _character;
 
+    private Coroutine _coroutine;
+
     private int _heal = 10;
-    private float _cooldown = 5f;
+    private float _cooldown = 2f;
     private float _lastUsedTime = 0f;
     private bool _isButtonSelected = false;
 
@@ -14,8 +16,13 @@ public class HealButton : MonoBehaviour
     {
         if (!_isButtonSelected && Time.time - _lastUsedTime >= _cooldown)
         {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+
+            _coroutine = StartCoroutine(HealWithCooldown());
             _isButtonSelected = true;
-            StartCoroutine(HealWithCooldown());
         }        
     }
 
