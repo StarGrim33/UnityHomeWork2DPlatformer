@@ -13,16 +13,17 @@ public class CharacterMovement : MonoBehaviour
     private const string GroundCheck = "GroundCheck";
     private static readonly int StateHash = Animator.StringToHash("State");
 
-    private CharState State
+    public CharState State
     {
         get { return (CharState)_animator.GetInteger(StateHash); }
-        set { _animator.SetInteger(StateHash, (int)value); }
+        private set { _animator.SetInteger(StateHash, (int)value); }
     }
 
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Transform _groundCheck;
+
     private bool _isGrounded = false;
 
     private void Awake()
@@ -35,7 +36,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckGround();
+        UpdateIsGrounded();
     }
 
     private void Update()
@@ -67,7 +68,7 @@ public class CharacterMovement : MonoBehaviour
         _rigidbody.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
     }
 
-    private void CheckGround()
+    private void UpdateIsGrounded()
     {
         _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _whatIsGround);
 

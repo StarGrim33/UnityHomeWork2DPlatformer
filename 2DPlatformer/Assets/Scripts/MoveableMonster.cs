@@ -6,6 +6,7 @@ public class MoveableMonster : Monster
     [SerializeField] private float _speed;
 
     private Vector3 _direction;
+    private int _damage = 15;
 
     private void Awake()
     {
@@ -17,17 +18,25 @@ public class MoveableMonster : Monster
         Move();
     }
 
-    //protected override void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.TryGetComponent<Bullet>(out Bullet bullet))
-    //    {
-    //        TakeDamage();
-    //    }
-    //}
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<Character>(out Character character))
+        {
+            character.TakeDamage(_damage);
+        }
+
+        if(collision.TryGetComponent<Bullet>(out Bullet bullet))
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Move()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * 0.5f + transform.right * _direction.x, 0.2f);
+        float radius = 0.2f;
+        float vectorRadius = 0.5f;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * vectorRadius + transform.right * _direction.x, radius);
 
         if(colliders.Length > 0 && colliders.All(x => !x.gameObject.GetComponent<Character>()))
         {

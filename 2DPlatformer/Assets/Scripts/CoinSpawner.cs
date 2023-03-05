@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSpawn : MonoBehaviour
+public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private Coin _template;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private int _count;
 
     private Coroutine _coroutine;
+    private List<Vector2> _spawnedCoinsPoints = new List<Vector2>();
+
     private int _time = 2;
     private bool _spawning = false;
-    private List<Vector2> _spawnedCoinsPoints = new List<Vector2>();
+
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class CoinSpawn : MonoBehaviour
     {
         _spawning = true;
         int coinsSpawned = 0;
+        var waitForSeconds = new WaitForSeconds(_time);
 
         while (coinsSpawned < _count)
         {
@@ -35,7 +38,7 @@ public class CoinSpawn : MonoBehaviour
                 coinsSpawned++;
             }
 
-            yield return new WaitForSeconds(_time);
+            yield return waitForSeconds;
         }
 
         _spawning = false;

@@ -10,57 +10,23 @@ public class Character : Unit
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private int _coins;
-    [SerializeField] private float _health;
-
-    private float _maxHealth = 100;
-
-    public event UnityAction<float> HealthChanged;
-
-    public float Health 
-    { 
-        get { return _health; } 
-        private set 
-        { 
-            _health = value; 
-
-            if (_health <= 0) 
-                _health = 0; 
-        } 
-    }
-    
-    public float MaxHealth { get { return _maxHealth; } }
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
-    
+    private Health _health;
+
+
     private void Awake()
     {
-        _spriteRenderer= GetComponent<SpriteRenderer>();
-        _rigidbody= GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
             Shoot();
-    }
-
-    public override void TakeDamage()
-    {
-        float impulse = 8.0f;
-        int damage = 10;
-
-        Health -= damage;
-
-        HealthChanged?.Invoke(_health);
-
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.AddForce(transform.up * impulse, ForceMode2D.Impulse);
-    }
-
-    public void AddCoin(int value)
-    {
-        _coins += value;
     }
 
     private void Shoot()
@@ -73,18 +39,22 @@ public class Character : Unit
         newBullet.Direction = newBullet.transform.right * (_spriteRenderer.flipX ? flipMin : flipMax);
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Unit unit = collision.gameObject.GetComponent<Unit>();
-
-    //    if (unit)
-    //        TakeDamage();
-    //}
-
-    public void Heal()
+    public override void TakeDamage(int damage)
     {
-        int heal = 10;
+        float impulse = 8.0f;
 
-        _health += heal;
+        _health.TakeDamage(damage);
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.AddForce(transform.up * impulse, ForceMode2D.Impulse);
+    }
+
+    public void AddCoin(int value)
+    {
+        _coins += value;
+    }
+
+    public void Heal(int heal)
+    {
+        _health.Heal(heal);
     }
 }

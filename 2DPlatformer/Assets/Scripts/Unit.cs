@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public virtual void TakeDamage()
+    public virtual void TakeDeadlyDamage()
     {
         Die();
     }
+
+    public virtual void TakeDamage(int damage) { }
 
     public virtual void Die()
     {
