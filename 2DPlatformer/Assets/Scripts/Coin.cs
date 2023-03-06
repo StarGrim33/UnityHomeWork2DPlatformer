@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour
     [HideInInspector]
     [SerializeField] private AudioClip _clip;
 
-    public static event UnityAction CoinChanged;
+    public static event UnityAction Taken;
 
     private int _coinValue = 1;
 
@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour
         if(collision.TryGetComponent<Character>(out Character character))
         {
             character.AddCoin(_coinValue);
-            CoinChanged?.Invoke ();
+            Taken?.Invoke ();
 
             if (_clip != null)
             {

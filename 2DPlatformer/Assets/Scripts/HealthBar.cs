@@ -15,14 +15,14 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         _slider = GetComponent<Slider>();
-        _health.HealthReduced += OnHealthReduced;
-        _health.HealthIncresead += OnHealthIncreased;
+        _health.Reduced += OnHealthReduced;
+        _health.Incresead += OnHealthIncreased;
     }
 
     private void OnDestroy()
     {
-        _health.HealthReduced -= OnHealthReduced;
-        _health.HealthIncresead -= OnHealthIncreased;
+        _health.Reduced -= OnHealthReduced;
+        _health.Incresead -= OnHealthIncreased;
     }
 
     public void OnHealthReduced(int currentHealth)

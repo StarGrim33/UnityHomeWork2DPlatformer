@@ -9,22 +9,22 @@ public class CoinCounter : MonoBehaviour
 
     private void Start()
     {
-        Coin.CoinChanged += OnCoinChanged;
+        Coin.Taken += OnCoinChanged;
     }
 
     private void OnDestroy()
     {
-        Coin.CoinChanged -= OnCoinChanged;
+        Coin.Taken -= OnCoinChanged;
     }
 
     private void OnCoinChanged()
     {
-        TextCoins();
+        DisplayCoins();
     }
 
-    public void TextCoins()
+    public void DisplayCoins()
     {
-        string text = "Монет: " + _character.Coins.ToString();
+        string text = "Монет " + _character.Coins.ToString();
         _text.text = text;
     }
 }

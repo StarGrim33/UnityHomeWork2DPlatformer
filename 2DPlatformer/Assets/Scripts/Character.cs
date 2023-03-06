@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Health))]
 public class Character : Unit
 {
     [SerializeField] private Bullet _bullet;
@@ -36,8 +36,9 @@ public class Character : Unit
         float flipMax = 1.0f;
 
         Bullet newBullet = Instantiate(_bullet, _shootPosition.position, _bullet.transform.rotation);
-        newBullet.Parent = gameObject;
-        newBullet.Direction = newBullet.transform.right * (_spriteRenderer.flipX ? flipMin : flipMax);
+        newBullet.SetParentBullet(gameObject);
+        Vector3 newBulletDirection = newBullet.transform.right * (_spriteRenderer.flipX ? flipMin : flipMax);
+        newBullet.SetParentBulletDirection(newBulletDirection);
     }
 
     public override void TakeDamage(int damage)

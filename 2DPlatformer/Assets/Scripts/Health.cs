@@ -8,8 +8,8 @@ public class Health : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private int _maxHealth;
 
-    public event UnityAction<int> HealthReduced;
-    public event UnityAction<int> HealthIncresead;
+    public event UnityAction<int> Reduced;
+    public event UnityAction<int> Incresead;
 
     public int CurrentHealth
     {
@@ -26,13 +26,13 @@ public class Health : MonoBehaviour
     {
         CurrentHealth += heal;
         Debug.Log(CurrentHealth);
-        HealthIncresead?.Invoke(CurrentHealth);
+        Incresead?.Invoke(CurrentHealth);
     }
 
     public void TakeDamage(int damage)
     {
         CurrentHealth -= damage;
         Debug.Log(CurrentHealth);
-        HealthReduced?.Invoke(CurrentHealth);
+        Reduced?.Invoke(CurrentHealth);
     }
 }

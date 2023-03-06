@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator)), RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(Transform))]
 public class CharacterMovement : MonoBehaviour
 {
+    [SerializeField] private Transform _groundCheckTransform;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _whatIsGround;
 
-    private const string GroundCheck = "GroundCheck";
     private static readonly int StateHash = Animator.StringToHash("State");
 
     public CharState State
@@ -22,7 +22,6 @@ public class CharacterMovement : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
-    private Transform _groundCheck;
 
     private bool _isGrounded = false;
 
@@ -30,8 +29,8 @@ public class CharacterMovement : MonoBehaviour
     {
         _rigidbody= GetComponent<Rigidbody2D>();
         _spriteRenderer= GetComponent<SpriteRenderer>();
-        _groundCheck = transform.Find(GroundCheck);
         _animator = GetComponent<Animator>();
+        _groundCheckTransform = GetComponentInChildren<Transform>();
     }
 
     private void FixedUpdate()
@@ -70,7 +69,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void UpdateIsGrounded()
     {
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _whatIsGround);
+        _isGrounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _whatIsGround);
 
         if (!_isGrounded)
             State = CharState.Jump;
