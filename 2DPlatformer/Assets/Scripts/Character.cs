@@ -11,7 +11,7 @@ public class Character : Unit
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private int _coins;
 
-    public int Coins { get { return _coins; } private set { } }
+    public int Coins => _coins;
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
@@ -36,7 +36,7 @@ public class Character : Unit
         float flipMax = 1.0f;
 
         Bullet newBullet = Instantiate(_bullet, _shootPosition.position, _bullet.transform.rotation);
-        newBullet.SetParentBullet(gameObject);
+        newBullet.SetParentBullet(transform);
         Vector3 newBulletDirection = newBullet.transform.right * (_spriteRenderer.flipX ? flipMin : flipMax);
         newBullet.SetParentBulletDirection(newBulletDirection);
     }
